@@ -64,6 +64,8 @@ export async function fetchCardData() {
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
          FROM invoices`;
 
+    // Promise.All will trigger simultaneous loading for each of these data requests
+    // Downside is fast requests must wait for slow requests
     const data = await Promise.all([
       invoiceCountPromise,
       customerCountPromise,
